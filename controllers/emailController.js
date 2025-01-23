@@ -17,8 +17,6 @@ const sendEmailAndSaveUser = async (req, res) => {
     await transporter.sendMail(mailOptions);
 
     // 2) Save the user in MongoDB
-    // If your schema expects { email, subject, message }, you'll need to match that.
-    // For example, if your schema has "name" but not "subject", adapt accordingly.
     const user = new User({
       email,      // user's email
       name: name, // or store name in a separate field
