@@ -14,7 +14,11 @@ const server = http.createServer(app);
 connectDB();
 
 // 2) Middlewares
-app.use(cors({ origin: `${FRONTEND_BASE_URL}` })); // or '*'
+const allowedOrigins = [
+    'http://localhost:5173',
+    'https://eyalyehiely.up.railway.app'
+  ]
+app.use(cors({ origin: `${allowedOrigins}` })); 
 app.use(express.json());
 
 // 3) Routes
