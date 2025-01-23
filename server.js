@@ -6,7 +6,7 @@ const cors = require('cors');
 const connectDB = require('./config/db');
 const emailRoutes = require('./routes/emailRoutes');
 // If you're not using Socket.io or collaboration, remove the lines for socket.io
-
+const FRONTEND_BASE_URL = process.env.FRONTEND_BASE_URL
 const app = express();
 const server = http.createServer(app);
 
@@ -14,7 +14,7 @@ const server = http.createServer(app);
 connectDB();
 
 // 2) Middlewares
-app.use(cors({ origin: 'http://localhost:5173' })); // or '*'
+app.use(cors({ origin: `${FRONTEND_BASE_URL}` })); // or '*'
 app.use(express.json());
 
 // 3) Routes
