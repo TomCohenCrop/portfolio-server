@@ -14,8 +14,34 @@ const server = http.createServer(app);
 connectDB();
 
 // 2) Middlewares
-app.use(cors({ origin: `${FRONTEND_BASE_URL}` })); // or '*'
+const corsOptions = {
+  origin: 'https://crop-design.vercel.app',
+  methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['X-Requested-With', 'content-type', 'Authorization'],
+  credentials: true
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
+
+// Add CORS middleware
+app.use((req, res, next) => {
+  // Allow requests from your frontend domain
+  res.setHeader('Access-Control-Allow-Origin', 'https://crop-design.vercel.app');
+  // Allow specific HTTP methods
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  // Allow specific headers in requests
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Authorization');
+  // Allow credentials (if needed)
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  
+  next();
+});
 
 // 3) Routes
 app.use('/api/email', emailRoutes);
