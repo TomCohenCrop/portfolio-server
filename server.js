@@ -6,7 +6,7 @@ const cors = require('cors');
 const connectDB = require('./config/db');
 const emailRoutes = require('./routes/emailRoutes');
 // If you're not using Socket.io or collaboration, remove the lines for socket.io
-const FRONTEND_BASE_URL = process.env.FRONTEND_BASE_URL
+const FRONTEND_BASE_URL = import.meta.env.FRONTEND_BASE_URL
 const app = express();
 const server = http.createServer(app);
 
